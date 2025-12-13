@@ -1,4 +1,7 @@
-[gd_scene load_steps=6 format=3 uid="uid://cwnwy7uaafk4l"]
+[gd_scene load_steps=8 format=3 uid="uid://cwnwy7uaafk4l"]
+
+[ext_resource type="Script" uid="uid://mjsvccvrufa0" path="res://Scripts/Turret.gd" id="1_aqrsx"]
+[ext_resource type="PackedScene" uid="uid://cx207tpwx1ix5" path="res://GameObjects/Projectile.tscn" id="2_0ruk3"]
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_ulk6p"]
 height = 1.0
@@ -23,6 +26,8 @@ is_hemisphere = true
 
 [node name="Turret" type="Node3D"]
 transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
+script = ExtResource("1_aqrsx")
+projectile = ExtResource("2_0ruk3")
 
 [node name="TurretBase" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
@@ -44,6 +49,15 @@ skeleton = NodePath("../..")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.52482826, -1.1920929e-07)
 mesh = SubResource("CylinderMesh_fybta")
 
+[node name="ProjectileSpawnPoint" type="Node3D" parent="TurretBase/TurretTop/Gun"]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 1.6852134, 0.3172922)
+
 [node name="MeshInstance3D" type="MeshInstance3D" parent="TurretBase/TurretTop"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3, 0)
 mesh = SubResource("SphereMesh_lvfwo")
+
+[node name="ShootTimer" type="Timer" parent="."]
+autostart = true
+
+[connection signal="timeout" from="ShootTimer" to="." method="_on_shoot_timer_timeout"]
