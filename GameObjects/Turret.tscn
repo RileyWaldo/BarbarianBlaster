@@ -1,0 +1,49 @@
+[gd_scene load_steps=6 format=3 uid="uid://cwnwy7uaafk4l"]
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_ulk6p"]
+height = 1.0
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_aqrsx"]
+top_radius = 0.6
+bottom_radius = 0.6
+height = 0.6
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_0ruk3"]
+top_radius = 0.1
+bottom_radius = 0.2
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_fybta"]
+top_radius = 0.14
+bottom_radius = 0.175
+height = 0.5
+
+[sub_resource type="SphereMesh" id="SphereMesh_lvfwo"]
+height = 0.5
+is_hemisphere = true
+
+[node name="Turret" type="Node3D"]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
+
+[node name="TurretBase" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+mesh = SubResource("CylinderMesh_ulk6p")
+
+[node name="TurretTop" type="MeshInstance3D" parent="TurretBase"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3, 0)
+mesh = SubResource("CylinderMesh_aqrsx")
+
+[node name="Gun" type="Node3D" parent="TurretBase/TurretTop"]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0.8483581, 0)
+
+[node name="TurretBarrel" type="MeshInstance3D" parent="TurretBase/TurretTop/Gun"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0.32954383)
+mesh = SubResource("CylinderMesh_0ruk3")
+skeleton = NodePath("../..")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="TurretBase/TurretTop/Gun/TurretBarrel"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.52482826, -1.1920929e-07)
+mesh = SubResource("CylinderMesh_fybta")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="TurretBase/TurretTop"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3, 0)
+mesh = SubResource("SphereMesh_lvfwo")

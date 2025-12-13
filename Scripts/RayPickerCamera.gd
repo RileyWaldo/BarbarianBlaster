@@ -1,6 +1,8 @@
 extends Camera3D
 
+@export var gridMap: GridMap
 @export var rayMaxDistance: float = 100.0
+@export var turretManager: Node3D
 
 @onready var rayCast: RayCast3D = $RayCast3D
 
@@ -9,5 +11,18 @@ func _process(_delta: float) -> void:
 	rayCast.target_position = project_local_ray_normal(mousePos) * rayMaxDistance
 	rayCast.force_raycast_update()
 	
-	printt(rayCast.get_collider(), rayCast.get_collision_point())
-	
+	Input.set_default_cursor_shape(Input.CURSOR_ARROW)
+	if(rayCast.is_colliding()):
+		Input.set_default_cursor_shape(Input.CURSOR_POINTING_HAND)
+		
+		if(!Input.is_action_just_pressed("click")):
+			return
+		var collider = rayCast.get_collider()
+		if(collider is GridMap):
+			var collisionPoint = rayCast.get_collision_point()
+			var cell = gridMap.local_to_map(collisionPoint)
+			if(gridMap.get_cell_item(cell) != 0):
+				return
+			gridMap.set_cell_item(cell, 1)
+			var tilePosition = gridMap.map_to_local(cell)
+			turretManager.BuildTurret(tilePosition)
