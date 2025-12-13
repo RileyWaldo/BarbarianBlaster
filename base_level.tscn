@@ -1,6 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://b0hp12i56too8"]
+[gd_scene load_steps=8 format=3 uid="uid://b0hp12i56too8"]
 
 [ext_resource type="MeshLibrary" uid="uid://mbshsf5ypr4a" path="res://MeshLibraries/SpaceLibrary.tres" id="1_bo3yr"]
+[ext_resource type="PackedScene" uid="uid://cgio16xab0rf" path="res://GameObjects/Enemy.tscn" id="2_5vx1e"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_4sal3"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -15,6 +16,16 @@ sky = SubResource("Sky_bo3yr")
 tonemap_mode = 2
 glow_enabled = true
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_eesb3"]
+albedo_color = Color(0.26666668, 0.26666668, 0.26666668, 1)
+
+[sub_resource type="Curve3D" id="Curve3D_3o4py"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, -26, 0, 6, -1, 0, 1, 1, 0, -1, -14, 0, 6, -0.7, 0, 0.90000004, 0.7, 0, -0.90000004, -14, 0, -2, -0.5, 0, -0.7, 0.5, 0, 0.7, -6, 0, -2, -0.8, 0, -1, 0.8, 0, 1, -6, 0, 2, -0.7, 0, -0.8, 0.7, 0, 0.8, 2, 0, 2, -0.6, 0, -0.90000004, 0.6, 0, 0.90000004, 2, 0, 6, -0.6, 0, 0.6, 0.6, 0, -0.6, 10, 0, 6, -0.7, 0, 0.7, 0.7, 0, -0.7, 10, 0, 2, 0, 0, 0, 0, 0, 0, 22, 0, 2),
+"tilts": PackedFloat32Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+}
+point_count = 10
+
 [node name="BaseLevel" type="Node3D"]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
@@ -26,6 +37,7 @@ shadow_enabled = true
 
 [node name="Floor" type="CSGBox3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
+material_override = SubResource("StandardMaterial3D_eesb3")
 size = Vector3(100, 2, 100)
 
 [node name="Camera3D" type="Camera3D" parent="."]
@@ -33,3 +45,56 @@ transform = Transform3D(1, 0, 0, 0, 0.42261824, 0.9063078, 0, -0.9063078, 0.4226
 
 [node name="GridMap" type="GridMap" parent="."]
 mesh_library = ExtResource("1_bo3yr")
+cell_size = Vector3(4, 4, 4)
+cell_center_y = false
+data = {
+"cells": PackedInt32Array(65535, 2, 0, 65530, 0, 0, 65530, 2, 0, 4, 2, 0, 65534, 2, 0, 65533, 2, 0, 65532, 2, 0, 3, 2, 0, 2, 2, 0, 1, 2, 0, 0, 2, 0, 5, 1, 0, 5, 2, 0, 65530, 65534, 0, 65530, 65535, 0, 5, 65535, 0, 5, 65534, 0, 4, 65534, 0, 3, 65534, 0, 2, 65534, 0, 1, 65534, 0, 0, 65534, 0, 65535, 65534, 0, 65534, 65534, 0, 65533, 65534, 0, 65532, 65534, 0, 65531, 65534, 0, 65531, 2, 0, 65531, 65535, 0, 65531, 0, 0, 65533, 0, 0, 65533, 1, 0, 65534, 1, 0, 65535, 1, 0, 65535, 65535, 0, 0, 65535, 0, 1, 65535, 0, 2, 65535, 0, 3, 65535, 0, 4, 65535, 0, 1, 0, 0, 3, 1, 0, 4, 1, 0)
+}
+
+[node name="Path3D" type="Path3D" parent="."]
+curve = SubResource("Curve3D_3o4py")
+
+[node name="Road" type="CSGPolygon3D" parent="Path3D"]
+polygon = PackedVector2Array(-1, 0, -1, 0.1, 1, 0.1, 1, 0)
+mode = 2
+path_node = NodePath("..")
+path_interval_type = 0
+path_interval = 0.5
+path_simplify_angle = 0.0
+path_rotation = 2
+path_rotation_accurate = false
+path_local = false
+path_continuous_u = true
+path_u_distance = 1.0
+path_joined = false
+
+[node name="RoadLeftEdge" type="CSGPolygon3D" parent="Path3D"]
+polygon = PackedVector2Array(-1.2, 0, -1.2, 0.2, -1, 0.2, -1, 0)
+mode = 2
+path_node = NodePath("..")
+path_interval_type = 0
+path_interval = 0.5
+path_simplify_angle = 0.0
+path_rotation = 2
+path_rotation_accurate = false
+path_local = false
+path_continuous_u = true
+path_u_distance = 1.0
+path_joined = false
+
+[node name="RoadRightEdge" type="CSGPolygon3D" parent="Path3D"]
+polygon = PackedVector2Array(1.2, 0, 1.2, 0.2, 1, 0.2, 1, 0)
+mode = 2
+path_node = NodePath("..")
+path_interval_type = 0
+path_interval = 0.5
+path_simplify_angle = 0.0
+path_rotation = 2
+path_rotation_accurate = false
+path_local = false
+path_continuous_u = true
+path_u_distance = 1.0
+path_joined = false
+
+[node name="Enemy" parent="Path3D" instance=ExtResource("2_5vx1e")]
+transform = Transform3D(-0.09053503, 0, -0.9958852, 0, 1, 0, 0.9958852, 0, -0.09053503, -26, 0, 6)
