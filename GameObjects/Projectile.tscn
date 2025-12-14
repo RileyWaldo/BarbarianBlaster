@@ -3,7 +3,9 @@
 [ext_resource type="Script" uid="uid://bnrrlmigbv3u2" path="res://Scripts/Projectile.gd" id="1_vgld0"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xs7re"]
-albedo_color = Color(1, 0, 0, 1)
+albedo_color = Color(0.21793571, 0.21759406, 0.21129623, 1)
+metallic = 0.65
+roughness = 0.55
 
 [sub_resource type="SphereMesh" id="SphereMesh_vgld0"]
 

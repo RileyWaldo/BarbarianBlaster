@@ -1,5 +1,6 @@
 extends Node
 
+@export var gameSpeed: float = 1.0
 @export var gameLength: float = 30.0
 @export var spawnTimeCurve: Curve
 @export var enemyHealthCurve: Curve
@@ -9,6 +10,7 @@ signal stopSpawningEnemies
 @onready var timer: Timer = $Timer
 
 func _ready() -> void:
+	Engine.time_scale = gameSpeed
 	timer.start(gameLength)
 
 

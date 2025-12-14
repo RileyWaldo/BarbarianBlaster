@@ -6,6 +6,7 @@ extends Node3D
 
 @onready var projectileSpawnPoint: Node3D = %ProjectileSpawnPoint
 @onready var animationPlayer: AnimationPlayer = $AnimationPlayer
+@onready var turretBase: Node3D = $TurretBase
 
 var enemyPath: Path3D
 var currentTarget: PathFollow3D
@@ -13,7 +14,7 @@ var currentTarget: PathFollow3D
 func _physics_process(_delta: float) -> void:
 	currentTarget = FindTarget()
 	if(currentTarget):
-		look_at(currentTarget.global_position, Vector3.UP, true)
+		turretBase.look_at(currentTarget.global_position, Vector3.UP, true)
 
 func _on_shoot_timer_timeout() -> void:
 	if(currentTarget):
@@ -38,5 +39,5 @@ func FireProjectile() -> void:
 	var newProjectile := projectile.instantiate()
 	add_child(newProjectile)
 	newProjectile.global_position = projectileSpawnPoint.global_position
-	newProjectile.direction = global_transform.basis.z
+	newProjectile.direction = turretBase.global_transform.basis.z
 	newProjectile.damage = damage

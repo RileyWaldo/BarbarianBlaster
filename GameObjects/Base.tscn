@@ -1,19 +1,10 @@
 [gd_scene load_steps=3 format=3 uid="uid://c1iinwkk72ugo"]
 
 [ext_resource type="Script" uid="uid://bgufe4d3xvqa8" path="res://Scripts/Base.gd" id="1_mi20d"]
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_as1qq"]
-albedo_color = Color(0.8357183, 3.2247603e-06, 7.70092e-07, 1)
+[ext_resource type="PackedScene" uid="uid://d4a63n2c045rw" path="res://Assets/Base.glb" id="2_xr4ll"]
 
 [node name="Base" type="Node3D" groups=["base"]]
 script = ExtResource("1_mi20d")
-
-[node name="CSGCylinder3D" type="CSGCylinder3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
-material_override = SubResource("StandardMaterial3D_as1qq")
-radius = 2.0
-height = 4.0
-sides = 24
 
 [node name="Label3D" type="Label3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.5, 0)
@@ -22,3 +13,5 @@ text = "10
 "
 font_size = 500
 outline_size = 100
+
+[node name="Base" parent="." instance=ExtResource("2_xr4ll")]

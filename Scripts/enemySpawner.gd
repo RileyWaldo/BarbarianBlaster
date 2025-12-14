@@ -21,7 +21,7 @@ func EnemyDefeated() -> void:
 		if(child is PathFollow3D):
 			return
 			
-	victoryCanvas.visible = true
+	victoryCanvas.Victory()
 	
 
 

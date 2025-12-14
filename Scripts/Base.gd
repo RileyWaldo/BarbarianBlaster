@@ -13,7 +13,7 @@ var health: int:
 		labelHealth.modulate = Color.RED.lerp(Color.WHITE, float(health) / float(maxHealth))
 		
 		if(health <= 0):
-			print("Dead")
+			get_tree().reload_current_scene()
 
 func _ready() -> void:
 	health = maxHealth

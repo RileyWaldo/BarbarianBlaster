@@ -3,7 +3,6 @@ extends CanvasLayer
 @onready var retryButton: Button = %RetryButton
 @onready var quitButton: Button = %QuitButton
 
-@onready var star1: TextureRect = %StarHBox/Star1
 @onready var star2: TextureRect = %StarHBox/Star2
 @onready var star3: TextureRect = %StarHBox/Star3
 
