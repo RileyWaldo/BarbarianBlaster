@@ -5,6 +5,7 @@ extends Node3D
 @export var turretRange: float = 10.0
 
 @onready var projectileSpawnPoint: Node3D = %ProjectileSpawnPoint
+@onready var animationPlayer: AnimationPlayer = $AnimationPlayer
 
 var enemyPath: Path3D
 var currentTarget: PathFollow3D
@@ -33,6 +34,7 @@ func FindTarget() -> PathFollow3D:
 	return target
 	
 func FireProjectile() -> void:
+	animationPlayer.play("Fire")
 	var newProjectile := projectile.instantiate()
 	add_child(newProjectile)
 	newProjectile.global_position = projectileSpawnPoint.global_position
