@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://b0hp12i56too8"]
+[gd_scene load_steps=17 format=3 uid="uid://b0hp12i56too8"]
 
 [ext_resource type="PackedScene" uid="uid://blth468svkjaq" path="res://GameObjects/RayPickerCamera.tscn" id="1_3o4py"]
 [ext_resource type="MeshLibrary" uid="uid://mbshsf5ypr4a" path="res://MeshLibraries/SpaceLibrary.tres" id="1_bo3yr"]
@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://cwnwy7uaafk4l" path="res://GameObjects/Turret.tscn" id="6_u2wky"]
 [ext_resource type="Script" uid="uid://dwd4mt5m3m28w" path="res://Scripts/Bank.gd" id="8_bkkah"]
 [ext_resource type="PackedScene" uid="uid://dxdhm0jx1qa8s" path="res://GameObjects/DifficultyManager.tscn" id="9_xjg0i"]
+[ext_resource type="PackedScene" uid="uid://b3ujtvd7mxql0" path="res://GameObjects/UserInterface.tscn" id="10_ykwpl"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_4sal3"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -65,11 +66,12 @@ data = {
 "cells": PackedInt32Array(65535, 2, 0, 65530, 0, 0, 65530, 2, 0, 4, 2, 0, 65534, 2, 0, 65533, 2, 0, 65532, 2, 0, 3, 2, 0, 2, 2, 0, 1, 2, 0, 0, 2, 0, 5, 1, 0, 5, 2, 0, 65530, 65534, 0, 65530, 65535, 0, 5, 65535, 0, 5, 65534, 0, 4, 65534, 0, 3, 65534, 0, 2, 65534, 0, 1, 65534, 0, 0, 65534, 0, 65535, 65534, 0, 65534, 65534, 0, 65533, 65534, 0, 65532, 65534, 0, 65531, 65534, 0, 65531, 2, 0, 65531, 65535, 0, 65531, 0, 0, 65533, 0, 0, 65533, 1, 0, 65534, 1, 0, 65535, 1, 0, 65535, 65535, 0, 0, 65535, 0, 1, 65535, 0, 2, 65535, 0, 3, 65535, 0, 4, 65535, 0, 1, 0, 0, 3, 1, 0, 4, 1, 0)
 }
 
-[node name="EnemyPath" type="Path3D" parent="." node_paths=PackedStringArray("difficultyManager")]
+[node name="EnemyPath" type="Path3D" parent="." node_paths=PackedStringArray("difficultyManager", "victoryCanvas")]
 curve = SubResource("Curve3D_3o4py")
 script = ExtResource("3_u2wky")
 difficultyManager = NodePath("../DifficultyManager")
 enemyScene = ExtResource("2_5vx1e")
+victoryCanvas = NodePath("../VictoryCanvasLayer")
 
 [node name="Road" type="CSGPolygon3D" parent="EnemyPath"]
 polygon = PackedVector2Array(-1, 0, -1, 0.1, 1, 0.1, 1, 0)
@@ -147,6 +149,8 @@ text = "Gold: 100"
 label_settings = SubResource("LabelSettings_2elnx")
 
 [node name="DifficultyManager" parent="." instance=ExtResource("9_xjg0i")]
+
+[node name="VictoryCanvasLayer" parent="." instance=ExtResource("10_ykwpl")]
 
 [connection signal="timeout" from="EnemyPath/SpawnTimer" to="EnemyPath" method="SpawnEnemy"]
 [connection signal="stopSpawningEnemies" from="DifficultyManager" to="EnemyPath" method="_on_difficulty_manager_stop_spawning_enemies"]
