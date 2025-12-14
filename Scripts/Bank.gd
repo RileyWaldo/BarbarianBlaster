@@ -1,5 +1,7 @@
 extends MarginContainer
 
+class_name Bank
+
 @export var startingGold: int = 150
 
 var gold: int:

@@ -19,6 +19,7 @@ config/icon="res://icon.svg"
 
 base="For easy access to the base"
 enemy="For enemy detection"
+bank="For easy access to the bank"
 
 [input]
 
