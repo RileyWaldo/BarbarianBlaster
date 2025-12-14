@@ -18,6 +18,7 @@ config/icon="res://icon.svg"
 [global_group]
 
 base="For easy access to the base"
+enemy="For enemy detection"
 
 [input]
 
